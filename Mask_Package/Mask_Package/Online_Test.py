@@ -5,14 +5,15 @@ import concurrent.futures
 from glob import glob
 
 # Input directory containing JPG files
-input_dir = "./images"
+input_dir = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'images')) 
 # Output directory for binary mask images
-output_dir = "./mask_images"
+output_dir = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'mask_images'))
 os.makedirs(output_dir, exist_ok=True)
 
 # Function to process each image
 def process_image(file_path):
     # Read the image
+    #print(f"{file_path} has {output_dir}")
     image = cv2.imread(file_path)
     if image is None:
         print(f"Image {file_path} Could not found!")
@@ -36,16 +37,10 @@ def process_image(file_path):
     return max_pixel_count
 
 def main():
-    # image = cv2.imread("C://Users//Jangid.Poonam//Downloads//Online-test//images//faroe_island_1.png")
-    # print(image.shape)
-    # cv2.imshow("Original Image", image)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-
     # Get all JPG files from the input directory
     image_files = glob(os.path.join(input_dir, "*.png")) + glob(os.path.join(input_dir, "*.jpg"))
     
-    # total_max_pixels = 0
+    total_max_pixels = 0
     with concurrent.futures.ThreadPoolExecutor() as executor:
         # Process each image in parallel
         results = list(executor.map(process_image, image_files))
@@ -55,5 +50,5 @@ def main():
     
     print(f"Total max pixels across all images: {total_max_pixels}")
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     main()
