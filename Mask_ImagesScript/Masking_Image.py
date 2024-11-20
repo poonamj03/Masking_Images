@@ -6,9 +6,9 @@ from glob import glob
 import time
 
 # Input directory containing JPG files
-input_dir = "C:\\Users\\Jangid.Poonam\\Downloads\\My_Package\\images"
+input_dir = ".\images"
 # Output directory for binary mask images
-output_dir = "C:\\Users\\Jangid.Poonam\\Downloads\\My_Package\\mask_images"
+output_dir = ".\mask_images"
 os.makedirs(output_dir, exist_ok=True)
 
 # Function to process each image
